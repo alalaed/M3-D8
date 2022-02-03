@@ -43,7 +43,9 @@
                     </div>
                 
                 
-                    <button type="button" onclick="userInput()" class="btn btn-primary">Submit</button>
+                    <button type="button" onclick="userInput(mainUrl
+                    ,method)" class="btn btn-primary">Submit</button>
+                    <button type="button" onclick="userEdit()" class="btn btn-success">edit</button>
                 </form>
             </div>
         </div>
@@ -59,7 +61,8 @@
 
     <script>
 
-        
+        const mainUrl = "https://striveschool-api.herokuapp.com/api/product/"
+        let method
         const editing = new URLSearchParams(window.location.search).get("Id")
         fetch("https://striveschool-api.herokuapp.com/api/product/" + editing, {
                 headers: {
@@ -71,26 +74,40 @@
             console.log(resp)
 
             
-            const name = document.getElementById("name").value=resp.name
-            const description = document.getElementById("description").value = resp.description
-            const brand = document.getElementById("brand").value = resp.brand
-            const price = document.getElementById("price").value = resp.price
-            const url = "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"
+            const name2 = document.getElementById("name").value=resp.name
+            const description2 = document.getElementById("description").value = resp.description
+            const brand2 = document.getElementById("brand").value = resp.brand
+            const price2 = document.getElementById("price").value = resp.price
+            const url2 = "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"
+           
+            const userEdit = () => {
             fetch("https://striveschool-api.herokuapp.com/api/product/" + editing, {
                 method:"PUT",
-                body:JSON.stringify(resp),
+                body:JSON.stringify({
+                    name: `${name2}`,
+                    description: `${description2}`,
+                    imageUrl: `${url2}`,
+                    brand: `${brand2}`,
+                    price: `${price2}`
+                }),
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M",
                     "content-type": "application/json",
                 }
             })
-            userInput()
-        })
+            }
         
+        }) 
+        if(editing){
+            mainUrl=mainUrl+editing
+            method = "PUT"
+        }else{
+            mainUrl=mainUrl
+            method= "POST"
+        }
 
 
-
-        const userInput = () => {
+        const userInput = (mainUrl,method)=> {
 
 
             const name = document.getElementById("name").value
@@ -100,8 +117,8 @@
             const url = "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"
 
 
-            fetch("https://striveschool-api.herokuapp.com/api/product/", {
-                        method: "POST",
+            fetch("https://striveschool-api.herokuapp.com/api/product/"+ editing ,{
+                        method: method,
                         headers: {
                             "content-type": "application/json",
                             "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M"
@@ -117,7 +134,7 @@
                         data.json()
 
                         console.log(data)
-                    })
+            })
         }
         
 
