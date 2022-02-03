@@ -42,8 +42,10 @@
                         <input type="number" class="form-control" id="price" placeholder="">
                     </div>
                 
-                
+                    
                     <button type="button" onclick="update()" class="btn btn-primary">Submit</button>
+                    <button type="button" onclick="omit()" class="btn btn-danger">del</button>
+
                 </form>
             </div>
         </div>
@@ -81,23 +83,6 @@
                     const brand2 = document.getElementById("brand").value = resp.brand
                     const price2 = document.getElementById("price").value = resp.price
                     const url2 = "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"
-
-                    // const userEdit = () => {
-                    // fetch("https://striveschool-api.herokuapp.com/api/product/" + editing, {
-                    //     method:"PUT",
-                    //     body:JSON.stringify({
-                    //         name: `${name2}`,
-                    //         description: `${description2}`,
-                    //         imageUrl: `${url2}`,
-                    //         brand: `${brand2}`,
-                    //         price: `${price2}`
-                    //     }),
-                    //     headers: {
-                    //         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M",
-                    //         "content-type": "application/json",
-                    //     }
-                    // })
-                    // }
 
                 }).catch(e => {
                     console.log(e)
@@ -140,7 +125,15 @@
         }
 
 
-        const omit = () => {
+        const omit = () => {    
+            
+            fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
+                method:"DELETE",
+                headers: {
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M"
+                }
+            })
+            window.location.assign("./")
 
         }
         
