@@ -30,6 +30,43 @@
         </div>
     </nav>
 
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">brand</th>
+                    <th scope="col">price</th>
+                    <th scope="col">description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -39,6 +76,22 @@
 
 
     <script>
+
+        const displayItems = () => {
+            fetch("https://striveschool-api.herokuapp.com/api/product/", {
+                headers: {
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M"
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    let container = document.getElementsByTagName("tbody")
+                    container[0].innerHTML= ""
+                    data.forEach(element => {
+
+                        
+                    });
+                })
+        }
         
         window.onload = () =>{
             fetch("https://striveschool-api.herokuapp.com/api/product/", {
@@ -46,9 +99,23 @@
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZhNjM5OTgyZWExZDAwMTViYjAzZTkiLCJpYXQiOjE2NDM3OTk0NTAsImV4cCI6MTY0NTAwOTA1MH0.5dZKYBo7eP4on-pcM8VC0B42JNHHlwPOAqk70FWRG1M"
                 }
             }).then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
+                .then(data => {
+                    console.log(data)
+                    let container = document.querySelector("tbody")
+                    container.innerHTML = ""
+                    for(let i=0; i<data.length;i++) {
+                        const inhalt = `
+                            <th scope="row">1</th>
+                            <td>${data[i].name}</td>
+                            <td>${data[i].brand}</td>
+                            <td>${data[i].price}</td>
+                            <td>${data[i].description}</td>
+                        `
+                        container.innerHTML +=inhalt
+                    }
+
+                    });
+                
         }
 
 
