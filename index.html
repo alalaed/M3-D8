@@ -91,6 +91,7 @@
                         
                     });
                 })
+            
         }
         
         window.onload = () =>{
@@ -105,12 +106,13 @@
                     container.innerHTML = ""
                     for(let i=0; i<data.length;i++) {
                         const inhalt = `
-                            <th scope="row">1</th>
+                            <th scope="row">${i+1}</th>
                             <td>${data[i].name}</td>
                             <td>${data[i].brand}</td>
                             <td>${data[i].price}</td>
                             <td>${data[i].description}</td>
-                            <td><button class="btn btn-success">edit</button></td>
+                            <td><a href="./backoffice.html?Id=${data[i]._id}"><button class="btn btn-success">edit</button></a></td>
+                            <td><a href="./backoffice.html?Id=${data[i]._id}"><button class="btn btn-success">del</button></a></td>
 
                         `
                         container.innerHTML +=inhalt
